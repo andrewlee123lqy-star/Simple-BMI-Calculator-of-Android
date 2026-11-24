@@ -33,7 +33,8 @@ class MainActivity : Activity() {
     private fun buildUi(): LinearLayout {
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(24), dp(24), dp(24), dp(24))
+            setPadding(dp(24), dp(24), dp(24), dp(24)) 
+            //把四个 dp(28) 改成 dp(0) 跑一次，界面立刻贴边；只改第一个数（左）为 dp(60)，会看到只有左边空出一大块——四个位置各管一边。
         }
 
         root.addFull(TextView(this).apply {
@@ -61,8 +62,9 @@ class MainActivity : Activity() {
         root.addFull(Button(this).apply {
             text = "Calculate BMI"
             setOnClickListener { resultText.text = calculate() }
-        }, 24)
-
+        }, 24) 
+        //刚打开页面时，resultText 还没有文字或背景，按钮下方看起来都是一片空白，很难看出差别。
+        //输入身高和体重，再点击 Calculate BMI，对比按钮底部到第一行结果文字的距离。设为 24 时，结果会比设为 0 时低 24dp。
         root.addFull(resultText)
         return root
     }
