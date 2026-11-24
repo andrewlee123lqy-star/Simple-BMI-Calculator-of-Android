@@ -59,14 +59,25 @@ class MainActivity : Activity() {
             textSize = 18f
             gravity = Gravity.CENTER
         }
-
+        anotherText = TextView(this).apply {
+            textSize = 18f
+            gravity = Gravity.CENTER
+            visibility = View.GONE
+        }
         root.addFull(Button(this).apply {
             text = "Calculate BMI"
-            setOnClickListener { resultText.text = calculate() }
-        }, 24) 
-        //刚打开页面时，resultText 还没有文字或背景，按钮下方看起来都是一片空白，很难看出差别。
-        //输入身高和体重，再点击 Calculate BMI，对比按钮底部到第一行结果文字的距离。设为 24 时，结果会比设为 0 时低 24dp。
+            setOnClickListener {
+                val result = calculate()
+                resultText.text = result //主结果
+                anotherText.text = "你个肥猪" //额外添加弹出文本
+                anotherText.visibility = View.VISIBLE
+            }
+        }, 100)
+        //View.VISIBLE 显示 且 占位
+        //View.INVISIBLE 隐藏 且 占位
+        //View.GONE 隐藏 且 完全不占位
         root.addFull(resultText)
+        root.addFull(anotherText) //额外文本的控件
         return root
     }
 
