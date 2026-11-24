@@ -33,10 +33,11 @@ class MainActivity : Activity() {
     private fun buildUi(): LinearLayout {
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
+            //LinearLayout.VERTICAL 严格按 addView 顺序排布；以及 lateinit 只是「声明」，不是「初始化」，更不是「加入界面」。
             setPadding(dp(24), dp(24), dp(24), dp(24)) 
             //把四个 dp(28) 改成 dp(0) 跑一次，界面立刻贴边；只改第一个数（左）为 dp(60)，会看到只有左边空出一大块——四个位置各管一边。
         }
-
+            //root.addFull 控件依照代码顺序从上往下排
         root.addFull(TextView(this).apply {
             text = "BMI Calculator"
             textSize = 24f
@@ -52,7 +53,7 @@ class MainActivity : Activity() {
             inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         }
         root.addFull(heightInput)
-        root.addFull(weightInput, 16)
+        root.addFull(weightInput, 16) //"16"是体重输入框与计算按钮的距离
 
         resultText = TextView(this).apply {
             textSize = 18f
